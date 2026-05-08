@@ -1,11 +1,10 @@
 'use client'
 import { useActionState } from 'react';
-
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import createTaskAction from "@/app/actions/createTask";
+import {createTaskAction} from "@/app/actions/tasks.actions";
 
 export default function CreateTodo() {
     const initialState = {
@@ -17,6 +16,8 @@ export default function CreateTodo() {
         createTaskAction,
         initialState
     );
+    console.log("Action State:", state);
+    console.log("Pending:", pending);
 
     return (
         <div className="flex items-center justify-center py-10">

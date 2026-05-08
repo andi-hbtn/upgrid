@@ -1,6 +1,8 @@
-export type TaskType = {
+import { RowDataPacket } from "mysql2";
+
+export interface TaskType extends RowDataPacket {
     id: string;
     title:string;
-    descrpition: string;
+    description: string;
     createdAt: Date;
 }

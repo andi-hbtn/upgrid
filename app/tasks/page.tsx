@@ -1,10 +1,12 @@
 import Link from "next/link";
+import { db } from "@/lib/db";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { TaskType } from "@/components/types/tasks";
 
 export default async function TasksPage() {
-    const tasks:TaskType[] = [];
+
+    const [tasks] = await db.query(`SELECT * FROM tasks`);
+
     return (
         <div className="container mx-auto px-4 py-10">
 
@@ -25,9 +27,9 @@ export default async function TasksPage() {
             {/* Tasks List */}
             {tasks.length > 0 ? (
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {tasks.map((task) => (
+                    {tasks.map((task, index) => (
                         <Card
-                            key={task.id}
+                            key={index}
                             className="rounded-2xl shadow-sm hover:shadow-md transition cursor-pointer"
                         >
                             <CardContent className="p-5 space-y-2">
