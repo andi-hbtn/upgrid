@@ -16,9 +16,6 @@ export default function CreateTodo() {
         createTaskAction,
         initialState
     );
-    console.log("Action State:", state);
-    console.log("Pending:", pending);
-
     return (
         <div className="flex items-center justify-center py-10">
             <Card className="w-full max-w-lg shadow-lg rounded-2xl">

@@ -1,5 +1,6 @@
 "use server";
 import { db } from "@/lib/db";
+import { redirect } from "next/navigation";
 export async function createTaskAction(prevState: { success: boolean; message: string }, formData: FormData) {
     const title = formData.get("title") as string;
     const description = formData.get("description") as string;
@@ -20,27 +21,24 @@ export async function createTaskAction(prevState: { success: boolean; message: s
 }
 
 
-export async function updateTaskAction(prevState: any, { paramId }: { paramId: string }, formData: FormData) {
+export async function updateTaskAction(prevState: any, formData: FormData) {
     try {
+        const id = formData.get("id") as string;
         const title = formData.get("title") as string;
         const description = formData.get("description") as string;
 
         await db.query(
             "UPDATE tasks SET title=?, description=? WHERE id=?",
-            [title, description, paramId]
+            [title, description, id]
         );
-
-        return {
-            success: true,
-            message: "Task updated successfully",
-        };
-
+        
     } catch (error) {
         return {
             success: false,
-            message: 'Failed to create task',
+            message: 'Failed to update task',
         }
     }
+    redirect("/tasks");
 }
 
 // Ke 3 mënyra kryesore për të bërë create - task në Next.js:
