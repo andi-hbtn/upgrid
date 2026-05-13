@@ -1,19 +1,20 @@
 "use client";
-import { useActionState } from "react";
-import { updateTaskAction } from "@/app/actions/tasks.actions";
+import { OneTask } from "../types/tasks.type";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { UpdateTaskType } from "@/components/types/tasks";
+import { useActionState } from "react";
+import { updateTaskAction } from "@/app/actions/actions";
 
-export default function UpdateTaskPage({ task }: { task: UpdateTaskType }) {
+export default function UpdateTaskById({ task }: { task: OneTask }) {
 
     const initialState = {
-        success: false,
-        message: '',
+        message: "",
+        status: ""
     }
-    const [state, dispatchAction, isPending] = useActionState(updateTaskAction, initialState);
+
+    const [state, dispatchAction, pending] = useActionState(updateTaskAction, initialState)
 
     return (
         <form className="space-y-6" action={dispatchAction}>

@@ -1,14 +1,18 @@
 import { RowDataPacket } from "mysql2";
 
 export interface TaskType extends RowDataPacket {
-    id: string;
+    id: number;
     title: string;
     description: string;
-    createdAt: Date;
+    status: string;
+    created_at: string
+
 }
 
-export interface UpdateTaskType {
+export interface OneTask {
+    id: number;
     title: string;
     description: string;
-    id: string;
+    status: string;
+    created_at: string
 }

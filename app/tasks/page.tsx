@@ -1,12 +1,11 @@
 import Link from "next/link";
+import { TaskType } from "./types/tasks.type";
 import { db } from "@/lib/db";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 export default async function TasksPage() {
-
-    const [tasks] = await db.query(`SELECT * FROM tasks`);
-
+    const [tasks] = await db.query<TaskType[]>(`SELECT * FROM tasks`);
     return (
         <div className="container mx-auto px-4 py-10">
 

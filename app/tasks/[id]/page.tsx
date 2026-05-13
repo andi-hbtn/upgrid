@@ -1,15 +1,20 @@
-"use server";
 import { db } from "@/lib/db";
-import Link from "next/link"
+import { notFound } from 'next/navigation'
+import { TaskType } from "../types/tasks.type";
+import Link from "next/link";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { TaskType } from "@/components/types/tasks";
-import UpdateTaskPage from "../update/page";
-export default async function TaskPage({ params }: { params: Promise<{ id: string }> }) {
+import { CardContent } from "@/components/ui/card";
+import UpdateTaskById from "../update/page";
 
+export default async function TaskByIdPage({ params }: { params: Promise<{ id: number }> }) {
     const { id } = await params;
-    const [rows] = await db.query<TaskType[]>(`SELECT * FROM tasks WHERE id=?`, [id]);
-    const task = rows[0];
+
+    const [result] = await db.query<TaskType[]>("SELECT * FROM tasks WHERE id=?", [id]);
+    const task = result[0];
+    if (!task) {
+        notFound();
+    }
 
     return (
         <div className="min-h-screen bg-background py-10 px-4">
@@ -30,7 +35,7 @@ export default async function TaskPage({ params }: { params: Promise<{ id: strin
 
                 <Card className="rounded-2xl shadow-sm border">
                     <CardContent className="p-6">
-                        <UpdateTaskPage task={task} />
+                        <UpdateTaskById task={task} />
                     </CardContent>
                 </Card>
             </div>
