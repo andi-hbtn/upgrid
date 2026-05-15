@@ -20,3 +20,17 @@ export async function updateTaskAction(prevState: any, formData: FormData) {
     }
     redirect("/tasks");
 }
+
+export async function deleteTaskById(prevState: any, formData: FormData) {
+    const id = formData.get("id") as string;
+    try {
+        await db.query("DELETE FROM tasks WHERE id=?", [id]);
+    } catch (error) {
+        return {
+            message: "Unable to update the task by id",
+            status: false
+        }
+    }
+
+    redirect("/tasks");
+}

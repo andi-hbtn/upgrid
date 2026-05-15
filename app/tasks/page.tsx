@@ -3,6 +3,7 @@ import { TaskType } from "./types/tasks.type";
 import { db } from "@/lib/db";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { DeleteTaskById } from "@/components/delete-taks";
 
 export default async function TasksPage() {
     const [tasks] = await db.query<TaskType[]>(`SELECT * FROM tasks`);
@@ -29,19 +30,21 @@ export default async function TasksPage() {
                     {tasks.map((task, index) => (
                         <Card
                             key={index}
-                            className="rounded-2xl shadow-sm hover:shadow-md transition cursor-pointer"
-                        >
+                            className="rounded-2xl shadow-sm hover:shadow-md transition cursor-pointer">
                             <CardContent className="p-5 space-y-2">
                                 <h2 className="text-lg font-semibold">{task.title}</h2>
                                 <p className="text-sm text-black/60 line-clamp-2">
                                     {task.description}
                                 </p>
-                                <Link
-                                    href={`/tasks/${task.id}`}
-                                    className="text-sm text-blue-600 hover:underline"
-                                >
-                                    View details →
-                                </Link>
+                                <div className="flex items-center gap-3 pt-2">
+                                    <DeleteTaskById id={task.id} />
+                                    <Link
+                                        href={`/tasks/${task.id}`}
+                                        className="text-sm text-blue-600 hover:underline"
+                                    >
+                                        View details →
+                                    </Link>
+                                </div>
                             </CardContent>
                         </Card>
                     ))}

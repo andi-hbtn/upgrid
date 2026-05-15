@@ -40,7 +40,7 @@ export default function UpdateTaskById({ task }: { task: OneTask }) {
                 <Link href="/tasks">
                     <Button type="button" variant="outline"> Cancel </Button>
                 </Link>
-                <Button type="submit"> Update Task</Button>
+                <Button type="submit">Update Task</Button>
             </div>
         </form>
     )
