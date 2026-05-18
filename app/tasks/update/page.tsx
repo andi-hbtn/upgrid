@@ -11,7 +11,7 @@ export default function UpdateTaskById({ task }: { task: OneTask }) {
 
     const initialState = {
         message: "",
-        status: ""
+        status: false
     }
 
     const [state, dispatchAction, pending] = useActionState(updateTaskAction, initialState)
