@@ -2,7 +2,7 @@
 import { db } from "@/lib/db"
 import { redirect } from "next/navigation";
 
-export async function createTaskAction(prevState: any, formData: FormData){
+export async function createTaskAction(prevState: any, formData: FormData) {
 
     const title = formData.get("title") as string;
     const description = formData.get("description") as string;

@@ -16,3 +16,11 @@ export interface OneTask {
     status: string;
     created_at: string
 }
+
+export interface UserType extends RowDataPacket {
+    id: number;
+    firstname: string;
+    lastname: string;
+    email: string;
+    password: string;
+}

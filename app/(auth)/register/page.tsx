@@ -1,6 +1,6 @@
 "use client"
 import { useActionState } from "react";
-import RegisterUserAction from "@/app/actions/auth.actions";
+import { RegisterUserAction } from "@/app/actions/auth.actions";
 import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -13,7 +13,10 @@ export default function RegisterPage() {
         status: false
     }
 
-    const [status, dispatchAction, pending] = useActionState(RegisterUserAction, initialState);
+    const [state, dispatchAction, pending] = useActionState(RegisterUserAction, initialState);
+
+    console.log("pending----", pending);
+    console.log("state----", state);
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-muted/40 px-4">
@@ -29,8 +32,13 @@ export default function RegisterPage() {
                     <form action={dispatchAction} className="space-y-4">
 
                         <div className="space-y-2">
-                            <Label htmlFor="name">Full name</Label>
-                            <Input id="name" name="name" placeholder="John Doe" required />
+                            <Label htmlFor="firstname">Firstname</Label>
+                            <Input id="firstname" name="firstname" placeholder="John Doe" required />
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label htmlFor="lastname">Lastname</Label>
+                            <Input id="lastname" name="lastname" placeholder="John Doe" required />
                         </div>
 
                         <div className="space-y-2">
@@ -43,11 +51,10 @@ export default function RegisterPage() {
                             <Input id="password" name="password" type="password" required />
                         </div>
 
-                        {/* <Button className="w-full" disabled={loading}>
-                            {loading ? "Creating account..." : "Register"}
-                        </Button> */}
+                        <Button className="w-full" disabled={state?.status}>
+                            {pending ? "Creating account..." : "Register"}
+                        </Button>
 
-                        <Button type="submit">Register</Button>
 
                         <p className="text-sm text-center text-muted-foreground">
                             Already have an account?{" "}
