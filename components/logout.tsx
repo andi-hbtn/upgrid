@@ -1,33 +1,18 @@
 "use client";
-
 import { useActionState } from "react";
 import { LogoutUserAction } from "@/app/actions/auth.actions";
-import { useRouter } from "next/navigation";
-
-const initialState = {
-    status: false,
-    message: ""
-};
 
 export default function LogoutButton() {
-    const router = useRouter();
 
-    const [state, dispatchaction, isPending] = useActionState(
-        async (prevState: any, formData: FormData) => {
-            const res = await LogoutUserAction();
+    const initialState = {
+        status: false,
+        message: ""
+    };
 
-            if (res.status) {
-                router.push("/login");
-                router.refresh();
-            }
-
-            return res;
-        },
-        initialState
-    );
+    const [state, dispatchAction, isPending] = useActionState(LogoutUserAction, initialState);
 
     return (
-        <form action={action}>
+        <form action={dispatchAction}>
             <button
                 type="submit"
                 disabled={isPending}

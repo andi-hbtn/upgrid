@@ -2,8 +2,12 @@ import Link from "next/link"
 import { Button } from "./ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import MobileMenuTrigger from "./mobile-menu-trigger";
+import LogoutButton from "./logout";
+import { getCurrentUser } from "@/lib/getCurrentUser";
 
-export default function Navbar() {
+export default async function Navbar() {
+    const user = await getCurrentUser();
+    console.log("user---", user);
     return (
         <nav className="w-full border-b bg-white">
             <div className="container mx-auto flex h-16 items-center justify-between px-4">
@@ -22,12 +26,23 @@ export default function Navbar() {
 
                 {/* Auth Buttons */}
                 <div className="hidden md:flex items-center gap-2">
-                    <Link href="/login">
-                        <Button variant="ghost">Login</Button>
-                    </Link>
-                    <Link href="/register">
-                        <Button>Register</Button>
-                    </Link>
+                    {user ? (
+                        <>
+                            <span className="text-sm text-gray-600">
+                                Hi, {user.firstname}
+                            </span>
+                            <LogoutButton />
+                        </>
+                    ) : (
+                        <>
+                            <Link href="/login">
+                                <Button variant="ghost">Login</Button>
+                            </Link>
+                            <Link href="/register">
+                                <Button>Register</Button>
+                            </Link>
+                        </>
+                    )}
                 </div>
 
                 {/* Mobile Menu */}
